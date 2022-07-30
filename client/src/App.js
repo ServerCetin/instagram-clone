@@ -1,36 +1,36 @@
-import LeftPhone from "./components/notLoggedIn/leftPhone/leftPhone";
-import RightForm from "./components/notLoggedIn/rightForm/rightForm";
+import routes from "./routes";
+import {useRoutes} from "react-router-dom"
+import {useUser} from "./context/userContext";
+import {useEffect, useState} from "react";
+import {Toaster} from "react-hot-toast";
+import Loader from "./components/notLoggedIn/loader";
 
 function App() {
+    const {user} = useUser()
+    const showRoutes = useRoutes(routes)
 
+    const [redirect, setRedirect] = useState(false)
+
+    useEffect(() => {
+        let timeout = setTimeout(() => {
+            setRedirect(true)
+        }, 1000)
+        return () => {
+            clearTimeout(timeout)
+        }
+    }, []);
+
+
+    if (!user && !redirect) {
+        return <Loader/>
+    }
 
     return (
-        <div className="h-full w-full  bg-main">
-
-            <div className="flex items-center justify-center gap-x-8 py-6">
-                <LeftPhone />
-                <RightForm />
-            </div>
-
-            <div className="container mx-auto justify-center items-center text-center">
-                <div>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                    <a className="text-gray-400 px-2 text-xs" href="#">Text</a>
-                </div>
-                <div>
-                    <p className="text-gray-400 px-2 text-xs">© 2022 Instagram from Meta</p>
-                </div>
-            </div>
-        </div>
-    );
+        <>
+            <Toaster position="top-right"/>
+            {showRoutes}
+        </>
+    )
 }
 
 export default App;
