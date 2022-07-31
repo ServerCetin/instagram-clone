@@ -15,8 +15,6 @@ export default function Login(){
             navigate(location.state?.return_url || '/', {replace: true})
     }, []);
 
-
-
     return (
         <div className="h-full w-full  bg-main">
 
