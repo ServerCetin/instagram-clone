@@ -1,25 +1,27 @@
-import LeftPhone from "./leftPhone/leftPhone";
-import RightForm from "./rightForm/rightForm";
 import {useUser} from "../../context/userContext";
+import {useEffect} from "react";
 import {useNavigate, useLocation} from "react-router-dom"
+import SignupForm from "./signupForm";
 import Footer from "../footer";
 
-export default function Login(){
+export default function Signup(){
     const {user} = useUser()
     const navigate = useNavigate()
     const location = useLocation()
 
-    user && navigate(location.state?.return_url || '/', {replace: true})
+    useEffect(() => {
+        if(user)
+            navigate(location.state?.return_url || '/', {replace: true})
+    }, []);
 
     return (
         <div className="h-full w-full  bg-main">
 
             <div className="flex items-center justify-center gap-x-8 py-6">
-                <LeftPhone />
-                <RightForm />
+                <SignupForm />
             </div>
 
-            <Footer />
+            <Footer/>
         </div>
     );
 };

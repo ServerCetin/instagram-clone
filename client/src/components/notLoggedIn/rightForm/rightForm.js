@@ -1,15 +1,17 @@
 import {useNavigate, useLocation} from "react-router-dom"
 import {AiFillFacebook} from "react-icons/ai";
-import Input from "./Input";
+import Input from "../../custom/Input";
 import {useUser} from "../../../context/userContext";
-import Validations from "../../../validations/signInValidation";
+import signInScheme from "../../../validations/signInValidation";
 import {useFormik} from "formik";
+import Button from "../../custom/Button";
+import Separator from "../../custom/Separator";
 
 
 export default function RightForm() {
     const navigate = useNavigate()
     const location = useLocation()
-    const {handleLogIn} = useUser()
+    const {handleLogIn,user} = useUser()
 
     const {handleChange, handleSubmit, isValid, dirty, isSubmitting } = useFormik({
         initialValues: {
@@ -20,12 +22,12 @@ export default function RightForm() {
         onSubmit: async values => {
             const logInInterval = setTimeout(async () => {
                 await handleLogIn(values.email, values.password);
-                navigate(location.state?.return_url || '/', {replace: true})
             },1000)
+            user && navigate(location.state?.return_url || '/', {replace: true})
 
             return () => {clearTimeout(logInInterval)}
         },
-        validationSchema: Validations
+        validationSchema: signInScheme
     });
 
     return (
@@ -37,20 +39,13 @@ export default function RightForm() {
                          src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
                          alt=""/>
                 </a>
-                <form  onSubmit={handleSubmit} className="grid gap-y-1.5">
+                <form onSubmit={handleSubmit} className="grid gap-y-1.5">
                     <Input type="text" name="email" onChange={handleChange}
                            label="Phone number, username or email"/>
                     <Input type="password" name="password" onChange={handleChange}
                            label="Password"/>
-                    <button type="submit" disabled={!isValid || !dirty || isSubmitting}
-                            className="h-[30px] mt-1 rounded bg-brand font-medium text-white text-sm disabled:opacity-50">Log
-                        In
-                    </button>
-                    <div className="flex items-center my-2.5 mb-3.5">
-                        <div className="h-px bg-gray-300 flex-1"/>
-                        <span className="px-4 text-[13px] text-gray-500 font-semibold">OR</span>
-                        <div className="h-px bg-gray-300 flex-1"/>
-                    </div>
+                    <Button type="submit"  disabled={!isValid || !dirty || isSubmitting}> Log In</Button>
+                    <Separator/>
                     <a href="#"
                        className="flex justify-center mb-2.5 items-center gap-x-2 text-sm font-semibold text-facebook">
                         <AiFillFacebook size={20}/>
@@ -61,7 +56,7 @@ export default function RightForm() {
             </div>
 
             <div className="bg-white border p-4 text-sm text-center">
-                Don't have an account? <a href="#" className="font-semibold text-brand">Sign up</a>
+                Don't have an account? <a href="/auth/signup" className="font-semibold text-brand">Sign up</a>
             </div>
 
         </div>

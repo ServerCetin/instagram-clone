@@ -3,6 +3,7 @@ import AuthLayout from "./components/notLoggedIn/authLayout";
 import Login from "./components/notLoggedIn";
 import PrivateRoute from "./components/privateRoute";
 import Logout from "./components/logout";
+import Signup from "./components/signup";
 
 const routes = [
     {
@@ -21,6 +22,10 @@ const routes = [
             {
                 path: 'logout',
                 element: <Logout />
+            },
+            {
+                path: 'signup',
+                element: <Signup />
             }
         ]
     }
