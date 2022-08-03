@@ -11,7 +11,7 @@ import Separator from "../../custom/Separator";
 export default function RightForm() {
     const navigate = useNavigate()
     const location = useLocation()
-    const {handleLogIn,user} = useUser()
+    const {handleLogIn,user, isLoading} = useUser()
 
     const {handleChange, handleSubmit, isValid, dirty, isSubmitting } = useFormik({
         initialValues: {
@@ -20,12 +20,10 @@ export default function RightForm() {
         },
 
         onSubmit: async values => {
-            const logInInterval = setTimeout(async () => {
-                await handleLogIn(values.email, values.password);
-            },1000)
+
+            await handleLogIn(values.email, values.password);
             user && navigate(location.state?.return_url || '/', {replace: true})
 
-            return () => {clearTimeout(logInInterval)}
         },
         validationSchema: signInScheme
     });
@@ -44,7 +42,7 @@ export default function RightForm() {
                            label="Phone number, username or email"/>
                     <Input type="password" name="password" onChange={handleChange}
                            label="Password"/>
-                    <Button type="submit"  disabled={!isValid || !dirty || isSubmitting}> Log In</Button>
+                    <Button type="submit"  disabled={!isValid || !dirty || isSubmitting}>{isLoading ? "..." : " Log In"} </Button>
                     <Separator/>
                     <a href="#"
                        className="flex justify-center mb-2.5 items-center gap-x-2 text-sm font-semibold text-facebook">

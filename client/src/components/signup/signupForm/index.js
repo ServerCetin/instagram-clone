@@ -13,7 +13,7 @@ export default function SignupForm() {
     const location = useLocation()
     const {user, handleSignUp} = useUser()
 
-    const {handleChange, handleSubmit, isValid, dirty, isSubmitting } = useFormik({
+    const {handleChange, handleSubmit, isValid, dirty, isSubmitting} = useFormik({
         initialValues: {
             email: '',
             password: '',
@@ -22,12 +22,13 @@ export default function SignupForm() {
         },
 
         onSubmit: async values => {
-            const logInInterval = setTimeout(async () => {
-                await handleSignUp(values)
-            },1000)
-
-            user && navigate(location.state?.return_url || '/', {replace: true}) // TODO does not redirect after sign up
-            return () => {clearTimeout(logInInterval)}
+            const response = await handleSignUp(values)
+            if (response) {
+                navigate(location.state?.return_url || '/', { //FIXME sign up'tan sonra ana sayfaya yonlendirmiyor user gec geldigi icin
+                    replace: true
+                })
+                console.log(user)
+            }
         },
         validationSchema: signUpScheme
     });
@@ -41,16 +42,18 @@ export default function SignupForm() {
                          src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"
                          alt=""/>
                 </a>
-                <p className="text-gray-400 font-medium text-center mb-5">Sign up to see photos and videos from your friends.</p>
+                <p className="text-gray-400 font-medium text-center mb-5">Sign up to see photos and videos from your
+                    friends.</p>
                 <Button type='submit'><AiFillFacebook size={20}/> Log in with Facebook</Button>
                 <Separator/>
 
-                <form  onSubmit={handleSubmit} className="grid gap-y-1.5">
+                <form onSubmit={handleSubmit} className="grid gap-y-1.5">
                     <Input type="text" name="email" onChange={handleChange} label="Mobile Number or Email"/>
                     <Input type="text" name="full_name" onChange={handleChange} label="Full Name"/>
                     <Input type="text" name="username" onChange={handleChange} label="Username"/>
                     <Input type="password" name="password" onChange={handleChange} label="Password"/>
-                    <p className="text-xs py-2 text-gray-400 text-center">People who use our service may have uploaded your
+                    <p className="text-xs py-2 text-gray-400 text-center">People who use our service may have uploaded
+                        your
                         contact information to Instagram.
                         <a className="font-bold" href="#"> Learn More</a>
                     </p>

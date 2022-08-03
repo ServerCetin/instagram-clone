@@ -3,12 +3,13 @@ import {useRoutes} from "react-router-dom"
 import {useUser} from "./context/userContext";
 import {Toaster} from "react-hot-toast";
 import Loader from "./components/notLoggedIn/loader";
+import {useEffect} from "react";
 
 function App() {
     const {user} = useUser()
     const showRoutes = useRoutes(routes)
 
-    if (user ===null) {
+    if (user === null) {
         return <Loader/>
     }
 

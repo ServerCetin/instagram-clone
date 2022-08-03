@@ -10,8 +10,7 @@ export default function Signup(){
     const location = useLocation()
 
     useEffect(() => {
-        if(user)
-            navigate(location.state?.return_url || '/', {replace: true})
+        user && navigate(location.state?.return_url || '/', {replace: true})
     }, []);
 
     return (

@@ -2,14 +2,25 @@ import Home from "./components/home";
 import AuthLayout from "./components/notLoggedIn/authLayout";
 import Login from "./components/notLoggedIn";
 import PrivateRoute from "./components/privateRoute";
-import Logout from "./components/logout";
+import MainLayout from "./components/mainLayout/layout";
 import Signup from "./components/signup";
+import UserProfile from "./components/userProfile";
 
 const routes = [
     {
         path: '/',
-        element: <Home />,
-        auth: true
+        element: <MainLayout />,
+        auth: true,
+        children: [
+            {
+                index: true,
+                element: <Home/>
+            },
+            {
+                path: ':username',
+                element: <UserProfile/>
+            }
+        ]
     },
     {
         path: '/auth',
@@ -20,8 +31,8 @@ const routes = [
                 element: <Login />
             },
             {
-                path: 'logout',
-                element: <Logout />
+                path: ':username',
+                element: <UserProfile />
             },
             {
                 path: 'signup',
