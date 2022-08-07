@@ -5,7 +5,7 @@ export default function MainLayout() {
     return (
         <>
             <Header/>
-            <div className="max-w-5xl mx-auto py-4">
+            <div className="lg:w-[64rem] mx-auto py-4">
                 <Outlet/>
             </div>
         </>

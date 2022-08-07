@@ -24,7 +24,7 @@ export default function Header() {
                     <NavLink to="/">
                         <HomeIconSvg />
                     </NavLink>
-                    <NavLink to="/">
+                    <NavLink to="/inbox">
                         <MessagesIconSvg />
                     </NavLink>
                     <NavLink to="/">

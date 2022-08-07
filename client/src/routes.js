@@ -7,6 +7,9 @@ import ProfileTagged from "./components/userProfile/tagged";
 import Register from "./components/Auth/register";
 import AuthLayout from "./components/Auth/authLayout";
 import Login from "./components/Auth/login";
+import InboxLayout from "./components/inbox/layout";
+import Inbox from "./components/inbox";
+import Chat from "./components/inbox/chat";
 
 const routes = [
     {
@@ -29,6 +32,20 @@ const routes = [
                     {
                         path: 'tagged',
                         element: <ProfileTagged />
+                    },
+                ]
+            },
+            {
+                path: 'inbox',
+                element: <InboxLayout />,
+                children: [
+                    {
+                        index: true,
+                        element: <Inbox />
+                    },
+                    {
+                        path: ':id',
+                        element: <Chat/>
                     }
                 ]
             }

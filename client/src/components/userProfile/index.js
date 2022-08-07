@@ -24,7 +24,7 @@ export default function ProfileLayout() {
             })
     }, [username, getUserByUsername])
 
-    if (user === false) {
+    if (user === undefined || user === false) {
         return <ProfileNotFound />
     }
 

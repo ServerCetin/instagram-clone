@@ -49,8 +49,6 @@ export const UserProvider = ({children}) => {
             return fetchedUser.data()
         } else {
             setIsLoading(false)
-            toast.error("User not exist!")
-            throw new Error("User not exist!")
         }
     }
 
