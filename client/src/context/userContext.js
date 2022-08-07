@@ -18,33 +18,36 @@ export const UserProvider = ({children}) => {
 
     useEffect(() => {
         onAuthStateChanged(auth, async user => {
+            setIsLoading(true)
             if (user) {
-                await getDoc(doc(db, "users", user.displayName)).then(fetchedUserData => {
-                    let data = {
-                        uid: user.uid,
-                        fullName: user.displayName,
-                        email: user.email,
-                        username: auth.currentUser.displayName,
-                        emailVerified: user.emailVerified,
-                        ...fetchedUserData.data()
-                    }
-                    setUser(data)
-                })
+                const fetchedUser = getDoc(doc(db, "users", user.displayName))
+                const fetchedData = (await fetchedUser).data()
+                let data = {
+                    uid: user.uid,
+                    fullName: user.displayName,
+                    email: user.email,
+                    username: auth.currentUser.displayName,
+                    emailVerified: user.emailVerified,
+                    ...fetchedData
+                }
+                setUser(data)
             } else {
+                setIsLoading(false)
                 setUser(false)
             }
         })
     }, []);
+
 
     const getUserByUsername = async (username) => {
         setIsLoading(true)
 
         const fetchedUser = await getDoc(doc(db, "users", username))
 
-        if(fetchedUser.exists()){
+        if (fetchedUser.exists()) {
             setIsLoading(false)
             return fetchedUser.data()
-        }else{
+        } else {
             setIsLoading(false)
             toast.error("User not exist!")
             throw new Error("User not exist!")
@@ -76,14 +79,20 @@ export const UserProvider = ({children}) => {
                         username: username,
                         followers: [],
                         following: [],
-                        notifications: []
+                        notifications: [],
+                        website: '',
+                        bio: '',
+                        phoneNumber: '',
+                        gender: '',
+                        posts: []
                     })
 
                     await updateProfile(auth.currentUser, {
                         displayName: username
                     })
 
-                    return response.user
+                    setIsLoading(false)
+                     return response.user
                 }
             }
         } catch (err) {

@@ -1,10 +1,12 @@
 import Home from "./components/home";
-import AuthLayout from "./components/notLoggedIn/authLayout";
-import Login from "./components/notLoggedIn";
 import PrivateRoute from "./components/privateRoute";
 import MainLayout from "./components/mainLayout/layout";
-import Signup from "./components/signup";
 import UserProfile from "./components/userProfile";
+import ProfilePosts from "./components/userProfile/posts";
+import ProfileTagged from "./components/userProfile/tagged";
+import Register from "./components/Auth/register";
+import AuthLayout from "./components/Auth/authLayout";
+import Login from "./components/Auth/login";
 
 const routes = [
     {
@@ -18,7 +20,17 @@ const routes = [
             },
             {
                 path: ':username',
-                element: <UserProfile/>
+                element: <UserProfile />,
+                children: [
+                    {
+                        index: true,
+                        element: <ProfilePosts />
+                    },
+                    {
+                        path: 'tagged',
+                        element: <ProfileTagged />
+                    }
+                ]
             }
         ]
     },
@@ -36,7 +48,7 @@ const routes = [
             },
             {
                 path: 'signup',
-                element: <Signup />
+                element: <Register />
             }
         ]
     }

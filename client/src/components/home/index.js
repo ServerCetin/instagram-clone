@@ -1,15 +1,14 @@
 import {useUser} from "../../context/userContext";
-import Header from "../header";
 
 export default function Home() {
-    const {user} = useUser()
+    const {user, handleLogout} = useUser()
 
     return (
         <>
             <div>Home</div>
             <div>Welcome {`${user.username}`}</div>
-            <a href="/auth/logout" className='text-red-600'>Log out!!!</a>
-            <p>{JSON.stringify(user)}</p>
+            <button onClick={handleLogout} className='text-red-600'>Log out!!!</button>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
         </>
     )
 }

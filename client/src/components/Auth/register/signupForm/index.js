@@ -1,17 +1,22 @@
 import {useNavigate, useLocation} from "react-router-dom"
 import {AiFillFacebook} from "react-icons/ai";
-import Input from "../../custom/Input";
-import {useUser} from "../../../context/userContext";
-import signUpScheme from "../../../validations/signUpValidation";
 import {useFormik} from "formik";
-import Button from "../../custom/Button";
-import Separator from "../../custom/Separator";
+import Input from "../../../custom/Input";
+import {useUser} from "../../../../context/userContext";
+import Button from "../../../custom/Button";
+import Separator from "../../../custom/Separator";
+import signUpScheme from "../../../../validations/signUpValidation";
+import {useEffect} from "react";
 
 
 export default function SignupForm() {
     const navigate = useNavigate()
     const location = useLocation()
     const {user, handleSignUp} = useUser()
+
+    useEffect(() => {
+        user && navigate(location.state?.return_url || '/', {replace: true})
+    }, [user]);
 
     const {handleChange, handleSubmit, isValid, dirty, isSubmitting} = useFormik({
         initialValues: {
@@ -27,7 +32,6 @@ export default function SignupForm() {
                 navigate(location.state?.return_url || '/', { //FIXME sign up'tan sonra ana sayfaya yonlendirmiyor user gec geldigi icin
                     replace: true
                 })
-                console.log(user)
             }
         },
         validationSchema: signUpScheme

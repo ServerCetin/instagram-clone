@@ -1,11 +1,11 @@
 import {useNavigate, useLocation} from "react-router-dom"
 import {AiFillFacebook} from "react-icons/ai";
-import Input from "../../custom/Input";
-import {useUser} from "../../../context/userContext";
-import signInScheme from "../../../validations/signInValidation";
 import {useFormik} from "formik";
-import Button from "../../custom/Button";
-import Separator from "../../custom/Separator";
+import {useUser} from "../../../../context/userContext";
+import SignInScheme from "../../../../validations/signInValidation";
+import Separator from "../../../custom/Separator";
+import Input from "../../../custom/Input";
+import Button from "../../../custom/Button";
 
 
 export default function RightForm() {
@@ -22,10 +22,10 @@ export default function RightForm() {
         onSubmit: async values => {
 
             await handleLogIn(values.email, values.password);
-            user && navigate(location.state?.return_url || '/', {replace: true})
+            !isLoading && user && navigate(location.state?.return_url || '/', {replace: true})
 
         },
-        validationSchema: signInScheme
+        validationSchema: SignInScheme
     });
 
     return (

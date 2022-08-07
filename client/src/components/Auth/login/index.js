@@ -1,9 +1,9 @@
 import LeftPhone from "./leftPhone/leftPhone";
 import RightForm from "./rightForm/rightForm";
-import {useUser} from "../../context/userContext";
 import {useNavigate, useLocation} from "react-router-dom"
-import Footer from "../footer";
 import {useEffect} from "react";
+import {useUser} from "../../../context/userContext";
+import Footer from "../../footer";
 
 export default function Login(){
     const {user} = useUser()

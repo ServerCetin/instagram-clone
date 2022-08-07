@@ -6,17 +6,16 @@ import {ExploreIconSvg} from "../../assets/svg/explore";
 import {MessagesIconSvg} from "../../assets/svg/messages";
 import {NewPostIconSvg} from "../../assets/svg/newPost";
 import {ActivityIconSvg} from "../../assets/svg/activity";
-import Button from "../custom/Button";
 
 export default function Header() {
-    const {handleLogout} = useUser()
+    const {user} = useUser()
 
     return (
         <header className="bg-white border-b border-gray-300">
             <div className="flex items-center justify-between h-[60px] max-w-5xl mx-auto">
 
                 <Link to="/">
-                    <img className="h-[29px]"
+                    <img alt="a" className="h-[29px]"
                          src="https://www.instagram.com/static/images/web/logged_out_wordmark-2x.png/d2529dbef8ed.png"/>
                 </Link>
 
@@ -35,11 +34,11 @@ export default function Header() {
                         <ExploreIconSvg />
                     </NavLink>
                     <NavLink to="/">
-                        <ActivityIconSvg />
+                        <ActivityIconSvg/>
                     </NavLink>
-                    <button onClick={handleLogout}>
+                    <NavLink to={`/${user.username}`}>
                         <img alt="profile-photo" width="24" height="24"  src={require('../../assets/img/default-profile-photo.jpg')}/>
-                    </button>
+                    </NavLink>
                 </nav>
             </div>
         </header>

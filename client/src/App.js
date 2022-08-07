@@ -2,8 +2,7 @@ import routes from "./routes";
 import {useRoutes} from "react-router-dom"
 import {useUser} from "./context/userContext";
 import {Toaster} from "react-hot-toast";
-import Loader from "./components/notLoggedIn/loader";
-import {useEffect} from "react";
+import Loader from "./components/Auth/login/loader";
 
 function App() {
     const {user} = useUser()

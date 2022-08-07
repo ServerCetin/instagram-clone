@@ -30,13 +30,13 @@ export default function LeftPhone(){
         <div className="hidden md:block text-center bg-[center_top_0.0rem] h-[581.15px] w-[380.31px] bg-[url('/src/assets/img/home-phone.png')]">
             <div className="relative" ref={ref}>
                 <img className="absolute right-4 top-7 opacity-0 transition-opacity duration-1000 ease-in" alt=''
-                     src={require("../../../assets/img/phone1.png")}/>
+                     src={require("../../../../assets/img/phone1.png")}/>
                 <img className="absolute right-4 top-7 opacity-0 transition-opacity duration-1000 ease-in" alt=''
-                     src={require("../../../assets/img/phone2.png")}/>
+                     src={require("../../../../assets/img/phone2.png")}/>
                 <img className="absolute right-4 top-7 opacity-0 transition-opacity duration-1000 ease-in" alt=''
-                     src={require("../../../assets/img/phone3.png")}/>
+                     src={require("../../../../assets/img/phone3.png")}/>
                 <img className="absolute right-4 top-7 opacity-0 transition-opacity duration-1000 ease-in" alt=''
-                     src={require("../../../assets/img/phone4.png")}/>
+                     src={require("../../../../assets/img/phone4.png")}/>
             </div>
         </div>
     )
